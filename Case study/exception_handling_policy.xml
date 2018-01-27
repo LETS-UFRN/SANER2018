@@ -1,0 +1,75 @@
+<ecl>
+
+	<!-- 
+		Quem deve tratar as seguintes (R1, R2, R4 e R5) exceções é a classe ViewFilter 
+	-->
+	<ehrule id="R1" type = "partial" signaler="*">
+		<exception type="ArqException">
+			<handler signature="br.ufrn.arq.web.ViewFilter.*" />    	  
+		</exception>
+	</ehrule>
+
+	<ehrule id="R2" type = "partial" signaler="*">
+		<exception type="UFRNException">
+			<handler signature="br.ufrn.arq.web.ViewFilter.*" />    	  
+		</exception>
+	</ehrule> 
+
+	<ehrule id="R4" type = "partial" signaler="*">
+		<exception type="DAOException">
+			<handler signature="br.ufrn.arq.web.ViewFilter.*" />    	  
+		</exception>
+	</ehrule>
+	
+
+	<ehrule id="R5" type = "partial" signaler="*">
+		<exception type="SegurancaException">
+			<handler signature="br.ufrn.arq.web.ViewFilter.*" />    	  
+		</exception>
+	</ehrule>
+	
+	<!-- 
+		Nenhum método do SIGRH pode tratar a exceção DAOException
+	-->
+	<ehrule id="R6" type = "partial" signaler="*">
+		<exception type="DAOException">
+			<cannot-handle signature="*" />    	  
+		</exception>
+	</ehrule>
+
+	<!-- 
+		Nenhum método do SIGRH pode tratar a exceção Exception
+	-->
+	<ehrule id="R7" type = "partial" signaler="*">
+		<exception type="Exception">
+			<cannot-handle signature="*" />    	  
+		</exception>
+	</ehrule>
+	
+	<!-- 
+		A única exceção que a camada DAO pode lançar é DAO exception. 
+	-->
+	<ehrule id="R8" type = "full" signaler="*.dao.*">
+		<exception type="DAOException">
+			<handler signature="br.ufrn.arq.web.ViewFilter.*" />    	  
+		</exception>
+	</ehrule>
+	
+	<!-- 
+		As únicas exceções que a camada JSF pode lançar são:  
+	-->
+	<ehrule id="R9" type = "full" signaler="*.jsf.*">
+		<exception type="ArqException">
+			<handler signature="br.ufrn.arq.web.ViewFilter.*" />    	  
+		</exception>
+		<exception type="NegocioException">
+			<handler signature="br.ufrn.arq.web.ViewFilter.*" />    	  
+		</exception>
+		<exception type="SegurancaException">
+			<handler signature="br.ufrn.arq.web.ViewFilter.*" />    	  
+		</exception>
+		<exception type="RuntimeNegocioException">
+			<handler signature="br.ufrn.arq.web.ViewFilter.*" />    	  
+		</exception>
+	</ehrule>
+</ecl>
